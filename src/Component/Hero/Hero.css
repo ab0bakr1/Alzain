@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo+Play:wght@200..1000&family=Indie+Flower&family=Jersey+25&family=Shadows+Into+Light&family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo+Play:wght@200..1000&family=Indie+Flower&family=Jersey+25&family=Shadows+Into+Light&family=Slabo+27px&display=swap');
+.hero{
+    position: relative;
+    height: 100svh;
+    width: 100svw;
+}
+.video{
+    width: 100%;
+    height: 100svh;
+    object-fit: fill;
+    position: absolute;
+}
+.hero-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    padding: 50px 0;
+    width: 100%;
+}
+.hero-text h1{
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 50px;
+    font-family: "Aref Ruqaa", serif;
+}
+.hero-text p{
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    color: #000000;
+    font-family: "Cairo Play", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    font-variation-settings:"slnt" 0;
+}

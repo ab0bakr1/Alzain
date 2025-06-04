@@ -1,0 +1,90 @@
+header{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100vw;
+}
+.header1{
+    background-color: transparent;
+    transition: all ease-in-out 0.5s;
+}
+.header1.active{
+    background-color: #ffffffcc;
+}
+.nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+}
+.nav a{
+    font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+/*--------------------- mobile------------------- */
+.ul-mobile{
+    display: none;
+}
+.navmobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.nav-side{
+    position: relative;
+}
+.nav-side button{
+    padding: 0;
+    background-color: transparent;
+    position: fixed;
+    z-index: 101;
+    top: 38px;
+    right:38px;
+    border: none;
+}
+.nav-back{
+    position: fixed;
+    height: 100svh;
+    width: 400px;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: #0C574C;
+}
+.navmobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 100px;
+}
+.navmobile a{
+    color: #fff;
+    text-decoration: none;
+    font-size: clamp(1.5rem,2rem,2.2rem);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+@media screen and (max-width: 900px){
+
+    .nav{
+        display: none!important;
+    }
+    .ul-mobile{
+        display: block;
+    }
+    .ul-mobile button{
+        display: block;
+    }
+}
+@media screen and (max-width: 450px){
+    #login h6{
+        display: none;
+    }
+}

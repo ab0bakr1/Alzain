@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo+Play:wght@200..1000&family=Dancing+Script:wght@400..700&family=Indie+Flower&family=Jersey+25&family=Satisfy&family=Shadows+Into+Light&family=Slabo+27px&display=swap');
+
+h3{
+    font-size: clamp(4rem, 8vw, 6rem);
+    font-weight: bold;
+    color: #000000;
+    font-family: "Jersey 25", sans-serif;
+}
+h3::after{
+    content: "";
+    display: block;
+    width: 80px;
+    height: 5px;
+    background-color: #0C574C;
+    margin: auto; 
+    border-radius: 5px;
+}
+
+.cardProduct {
+    width: 300px!important;
+    background: lightgrey;
+    border-radius: 25px;
+    box-shadow: -8px 8px 0px 5px rgba(144, 144, 144, 0.2);
+    border: 3px solid rgb(119, 119, 119);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.5s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transform: rotate(3deg) skewX(3deg);
+    padding: 0 !important;
+} 
+
+#cardbrightfilter {
+  width: 450px;
+  height: 200px;
+  background-color: rgb(255, 255, 255, 0.5);
+  position: absolute;
+  transform: rotate(-40deg) translateX(-15%) translateY(-160%);
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+#cardnewfilter {
+  width: 75px;
+  height: 30px;
+  border-radius: 0 0 0 25px;
+  background-color: #0C574C;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+#cardnewfilter p{
+  margin: 0px;
+}
+
+#cardtop {
+    width: 100%;
+    height: 70%;
+    transition: all 0.1s ease;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+}
+#cardbottom {
+    width: 100%;
+    height: 31%;
+    border-end-start-radius: 20px;
+    border-end-end-radius: 20px;
+    background-color: rgb(119, 119, 119);
+    font-weight: 500;
+    font-size: 20px;
+    padding: 10px;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+  #cardbottom hr {
+    height: 3px;
+    background-color: black;
+  }
+  
+  #cardbottomtitle {
+    margin-bottom: 10px;
+  }
+  #cardbottomdesc{
+    font-size: clamp(0.5rem, 2vw, 1rem);
+    color: #ffffffc3;
+  }
+  .quantity-input{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0px 10px;
+  }
+  .quantity-input li{
+    width: 30px;
+    height: 30px;
+    background-color: #0C574C;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+  }
+  .quantity-input li a{
+    text-decoration: none;
+    color: white;
+  }
+
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* لمتصفح فايرفوكس */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+
+  .quantity-input input{
+    width: 40px;
+    height: 30px;
+    background-color: #0C574C;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+
+  #cardbottombutton{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #cardbottomprice {
+    display: flex;
+    justify-content: end;
+    margin: 0;
+  }
+  
+  .cardProduct:hover {
+    transform: translateY(-5%);
+    box-shadow: 0px 20px 10px rgb(50, 50, 50, 0.2);
+  }
+  .cardProduct:hover #cardbrightfilter {
+    transform: rotate(-42deg) translateX(-15%) translateY(-79%);
+  }
+  
+  .cardProduct:active #cardtop {
+    transform: scale(1.05);
+  }
+  
+  .cardProduct:active #cardbottom {
+    background-color: #0C574C;
+  }
+  
+  .cardProduct:active #cardbottom {
+    color: white;
+  }
+  
+  .cardProduct:active #cardbottom hr {
+    background-color: white;
+  }
+  
+  .cardProduct:active .quantity-input input{
+    background-color: #fff;
+    color: #0C574C;
+  }

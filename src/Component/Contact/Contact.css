@@ -1,0 +1,116 @@
+/* Contact.css */
+#contact {
+  background: linear-gradient(135deg, rgb(119, 119, 119) 0%, rgb(119, 119, 119) 100%);
+}
+.contact {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.contact-form {
+  flex: 1 1 400px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.3s ease;
+}
+
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  margin-bottom: .7rem;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
+  background: #f9fbff;
+  color: #1a1a1a;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.7);
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  border-color: #0C574C;
+  outline: none;
+  background: #f2fffd;
+}
+
+.contact-form input[type="submit"] {
+  background: linear-gradient(45deg, #0C574C, #073d35);
+  color: white;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 4px 12px rgba(12, 87, 76, 0.15);
+}
+
+.contact-form input[type="submit"]:hover {
+  background: linear-gradient(45deg, #073d35, #0C574C);
+  box-shadow: 0 6px 18px rgba(12, 87, 76, 0.3);
+}
+
+.contact-info {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding: 1rem 0rem;
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #0C574C;
+  position: relative;
+  overflow: visible;
+  text-align: right;
+}
+
+.contact-info::before {
+  content: none;
+}
+
+.contact-info-item h4 {
+  margin-bottom: 0.6rem;
+  color: #0C574C;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  text-shadow: none;
+  border-bottom: 2px solid #C0C0C0;
+  padding-bottom: 0.3rem;
+}
+
+.contact-info-item p {
+  margin: 0;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  color: #fff;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+  }
+
+  .contact-form,
+  .contact-info {
+    flex: 1 1 100%;
+    padding: 1.8rem 1.5rem;
+  }
+}
