@@ -19,11 +19,19 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
   
 // ربط قاعدة البيانات MongoDB
-mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Alzain-Tea", {
+/* mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/Alzain-Tea", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log("✅ متصل بقاعدة البيانات"))
   .catch(err => console.error("❌ خطأ في الاتصال بقاعدة البيانات:", err));
+*/
+// ربط قاعدة البيانات MongDB atlas
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // الدفع
 const paymentRoutes = require("./src/routes/payment");
