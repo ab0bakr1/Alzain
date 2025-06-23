@@ -26,9 +26,6 @@ app.use("/api/products", productRoutes);
   .catch(err => console.error("❌ خطأ في الاتصال بقاعدة البيانات:", err));
 */
 // ربط قاعدة البيانات MongDB atlas
-const mongoose = require("mongoose");
-require("dotenv").config();
-
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
