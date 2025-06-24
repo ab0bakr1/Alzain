@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "An unexpected error occurred." });
 });
 
-import path from 'path';
+const path = require('path');
 const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, 'build')));
