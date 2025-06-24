@@ -43,7 +43,6 @@ app.use((err, req, res, next) => {
 });
 
 const path = require('path');
-const __dirname = path.resolve();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
