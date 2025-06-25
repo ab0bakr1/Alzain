@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:5000/api/cart', {
+      fetch(`${process.env.REACT_APP_API_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/cart/add', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/cart/add', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
