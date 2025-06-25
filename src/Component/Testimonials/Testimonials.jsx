@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
 import './Testimonials.css'
-import { Container } from 'react-bootstrap';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const testimonials = [
