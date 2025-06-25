@@ -5,8 +5,8 @@ import { CartContext } from '../../context/CartContext';
 
 export const Products = () => {
   const [product, setProduct] = useState([]);
-  const { cart, setCart, token, addToCart } = useContext(CartContext);
-  
+  const { cart, addToCart } = useContext(CartContext);
+
   useEffect(() => {
     fetch('https://alzain-production.up.railway.app/api/products')
       .then((res) => res.json())
