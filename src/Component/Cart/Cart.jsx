@@ -20,7 +20,7 @@ const Cart = () => {
       const item = cart.find(item => item.productId === productId);
       const newQuantity = (item?.quantity || 0) + 1;
       console.log('Updating quantity to:', newQuantity);
-      const response = await fetch('http://localhost:5000/api/cart/update-quantity', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/update-quantity`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const Cart = () => {
         await removeFromCart(productId);
         return;
       }
-      const response = await fetch('http://localhost:5000/api/cart/update-quantity', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/cart/update-quantity`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
