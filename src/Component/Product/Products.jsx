@@ -7,9 +7,6 @@ export const Products = () => {
   const [product, setProduct] = useState([]);
   const { cart, setCart, token, addToCart } = useContext(CartContext);
   
-const dotenv = require("dotenv");
-require("dotenv").config();
-dotenv.config();
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/api/products`)
       .then((res) => res.json())
