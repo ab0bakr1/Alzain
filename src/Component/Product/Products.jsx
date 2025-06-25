@@ -8,7 +8,7 @@ export const Products = () => {
   const { cart, addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch('https://alzain-production.up.railway.app/api/products')
+    fetch(`${process.env.REACT_APP_API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, []);
