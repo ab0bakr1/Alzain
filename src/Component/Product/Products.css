@@ -142,7 +142,7 @@ h3::after{
   }
   #cardbottomprice {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin: 0;
   }
   
