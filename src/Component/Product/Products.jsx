@@ -6,9 +6,12 @@ import { CartContext } from '../../context/CartContext';
 export const Products = () => {
   const [product, setProduct] = useState([]);
   const { cart, setCart, token, addToCart } = useContext(CartContext);
-
+  
+const dotenv = require("dotenv");
+require("dotenv").config();
+dotenv.config();
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${process.env.REACT_APP_API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, []);
