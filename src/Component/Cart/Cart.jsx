@@ -4,7 +4,7 @@ import { CartContext } from '../../context/CartContext';
 import Payment from '../Payment/Payment';
 
 const Cart = () => {
-  const { cart, setCart, addToCart, token, removeFromCart } = useContext(CartContext);
+  const { cart, setCart, token, removeFromCart } = useContext(CartContext);
 
   const cartquantity = () => {
     let count = 0;
