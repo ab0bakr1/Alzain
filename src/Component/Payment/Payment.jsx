@@ -36,7 +36,7 @@ const CheckoutForm = () => {
 
     try {
       // 1. إنشاء الطلب أولاً في السيرفر
-      const orderRes = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
+      const orderRes = await fetch('https://alzain-production.up.railway.app/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const CheckoutForm = () => {
       const orderId = orderData.order._id;
 
       // 2. إنشاء نية الدفع (paymentIntent)
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/checkout`, {
+      const res = await fetch('https://alzain-production.up.railway.app/api/payment/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const CheckoutForm = () => {
       } else {
         if (paymentResult.paymentIntent.status === 'succeeded') {
           // 4. تأكيد الدفع في السيرفر وربطه بالطلب
-          const confirmRes = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/confirm`, {
+          const confirmRes = await fetch('https://alzain-production.up.railway.app/api/payment/confirm', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
