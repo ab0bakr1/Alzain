@@ -1,40 +1,132 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import './Contact.css'
+import React, { createContext, useState, useEffect } from 'react';
 
-const Contact = () => {
+export const CartContext = createContext();
+
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState([]);
+  const [token, setToken] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  localStorage.setItem('quantity', quantity); 
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      fetch('https://alzain-production.up.railway.app/api/cart', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const newCart = data.items?.map((item) => {
+          const product = typeof item.productId === 'object' ? item.productId : {};
+          return {
+            productId: product._id || item.productId,
+            name: product.name || 'منتج غير معروف',
+            description: product.description || '',
+            image: product.images[0].image || '',
+            price: product.price || 0,
+            quantity: item.quantity ?? 1,
+          };
+        }) || [];
+        setCart(newCart);
+      })
+        .catch(() => setCart([]));
+    }
+  }, [token]);
+
+  const addToCart = async (productId) => {
+    if (!token) {
+      alert('الرجاء تسجيل الدخول أولاً لإضافة المنتجات إلى السلة.');
+      return;
+    }
+
+    try {
+      const res = await fetch('https://alzain-production.up.railway.app/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!res.ok) {
+        throw new Error('فشل في تحديث السلة.');
+      }
+
+      const updatedCart = await res.json();
+
+      // تحويل السلة إلى مصفوفة موحدة
+      const newCart = updatedCart.items?.map((item) => {
+        const product = typeof item.productId === 'object' ? item.productId : {};
+        return {
+          productId: product._id || item.productId,
+          name: product.name || 'منتج غير معروف',
+          description: product.description || '',
+          image: product.images ? (product.images[0]?.image || '') : (product.image || ''),
+          price: product.price || 0,
+          quantity: item.quantity ?? 1,
+        };
+      }) || [];
+
+      setCart(newCart);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const removeFromCart = async (productId) => {
+    if (!token) {
+      alert('الرجاء تسجيل الدخول أولاً لإزالة المنتجات من السلة.');
+      return;
+    }
+
+    try {
+      const res = await fetch('https://alzain-production.up.railway.app/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!res.ok) {
+        throw new Error('فشل في إزالة المنتج من السلة.');
+      }
+
+      const updatedCart = await res.json();
+
+      const newCart = updatedCart.items?.map((item) => {
+        const product = typeof item.productId === 'object' ? item.productId : {};
+        return {
+          productId: product._id || item.productId,
+          name: product.name || 'منتج غير معروف',
+          description: product.description || '',
+          image: product.images ? (product.images[0]?.image || '') : (product.image || ''),
+          price: product.price || 0,
+          quantity: item.quantity ?? 1,
+        };
+      }) || [];
+
+      setCart(newCart);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
   return (
-    <section id="contact" className='py-5 py-md-5'>
-        <Container>
-            <h3 className='text-center mb-2 mb-md-3'>للتواصل معنا</h3>
-            <Row className="contact">
-                <Col className="contact-form">
-                    <form action="" method="post">
-                        <input type="text" name="name" placeholder='ادخل اسمك' required />
-                        <input type="email" name="email" placeholder='ادخل بريدك الالكتروني' required />
-                        <input type="text" name="subject" placeholder='ادخل عنوان الموضوع' required />
-                        <textarea name="message" id="" cols="30" rows="5" placeholder='ادخل رسالتك' required></textarea>
-                        <input type="submit" value="Send" />
-                    </form>
-                </Col>
-                <Col className="contact-info">
-                    <div className="contact-info-item">
-                        <h4>رقم الهاتف</h4>
-                        <p>01123456789</p>
-                    </div>
-                    <div className="contact-info-item">
-                        <h4>البريد الالكتروني</h4>
-                        <p>sales@alzain.com</p>
-                    </div>
-                    <div className="contact-info-item">
-                        <h4>الموقع</h4>
-                        <p>سلطنة عمان , مسقط , الخوير</p>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
-    </section>
-  )
-}
-
-export default Contact
+    <CartContext.Provider value={{ cart, setCart, token, setToken, addToCart, quantity, setQuantity, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
