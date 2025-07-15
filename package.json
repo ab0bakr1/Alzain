@@ -4,7 +4,7 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-  "build": "set CI=false && react-scripts build",
+  "build": "CI='' react-scripts build",
   "start": "node server.js"
 },
   "dependencies": {
