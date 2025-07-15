@@ -35,7 +35,7 @@ export const Products = () => {
               </div>
               <div id="cardbottom">
                 <p id="cardbottomtitle">{product.name}</p>
-                <p id="cardbottomdesc">{product.description}</p>
+                <p id="cardbottomdesc" className='m-0'>{product.description}</p>
                 <hr />
                 <div id="cardbottombutton">
                   <p id="cardbottomprice">${product.price}</p>

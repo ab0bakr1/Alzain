@@ -169,6 +169,7 @@ h3::after{
   
   .cardProduct:active #cardbottom hr {
     background-color: white;
+    margin: .5rem 0;
   }
   
   .cardProduct:active .quantity-input input{
