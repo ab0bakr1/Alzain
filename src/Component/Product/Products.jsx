@@ -31,7 +31,7 @@ export const Products = () => {
               </div>
               <div id="cardbrightfilter"></div>
               <div id="cardtop">
-                <img src={product.images[0].image} alt={product.name} className="img-fluid" />
+                <img src={product.images[0].image} alt={product.name} className="h-100" />
               </div>
               <div id="cardbottom">
                 <p id="cardbottomtitle">{product.name}</p>
