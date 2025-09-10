@@ -13,7 +13,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://alzain-production.up.railway.app/api/auth/login', {
+      const response = await fetch('https://alzain.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

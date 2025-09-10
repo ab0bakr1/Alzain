@@ -18,7 +18,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      fetch('https://alzain-production.up.railway.app/api/cart', {
+      fetch('https://alzain.onrender.com/api/cart', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('https://alzain-production.up.railway.app/api/cart/add', {
+      const res = await fetch('https://alzain.onrender.com/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch('https://alzain-production.up.railway.app/api/cart/add', {
+      const res = await fetch('https://alzain.onrender.com/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

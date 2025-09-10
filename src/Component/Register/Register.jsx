@@ -21,7 +21,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('https://alzain-production.up.railway.app/api/auth/register', {
+      const response = await fetch('https://alzain.onrender.com/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
