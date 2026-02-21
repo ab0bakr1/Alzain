@@ -26,10 +26,19 @@ app.use("/api/products", productRoutes);
   .catch(err => console.error("❌ خطأ في الاتصال بقاعدة البيانات:", err));
 */
 // ربط قاعدة البيانات MongDB atlas
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+// خيارات إضافية لضمان استقرار الاتصال
+const connectionOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
+mongoose.connect(process.env.MONGO_URI, connectionOptions)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch((err) => {
+    console.error("❌ MongoDB connection error details:");
+    console.error(err.message); // سيطبع لك السبب الدقيق للمشكلة
+  });
+  
 // الدفع
 const paymentRoutes = require("./src/routes/payment");
 app.use("/api/payment", paymentRoutes);

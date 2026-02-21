@@ -1,43 +1,35 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 
-const variants ={
-    primary: {
-        transition: {
-            staggerchildren: 0.1
-        }
-    },
-    secondary: {
-        transition: {
-            staggerChildren: 0.05,
-            staggerDirection: -1
-        }
-    }
-}
+const listVariants = {
+  primary: { transition: { staggerChildren: 0.1 } },
+  secondary: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+};
 
-const itemV = {
-    primary: {
-        y: 0,
-        opacity: 1
-    },
-    secondary: {
-        y: 50,
-        opacity: 0
-    }
-}
+const itemVariants = {
+  primary: { y: 0, opacity: 1 },
+  secondary: { y: 10, opacity: 0 }
+};
 
 const Navbar = () => {
-    const navItems = ["الرئيسية", "من نحن", "المنتجات", "الخدمات", "اتصل بنا"];
+  const navItems = [
+    { name: "الرئيسية", path: "/" },
+    { name: "من نحن", path: "/about" },
+    { name: "المنتجات", path: "/products" },
+    { name: "الخدمات", path: "/services" },
+    { name: "اتصل بنا", path: "/contact" }
+  ];
+
   return (
-    <motion.ul variants={variants}>
-        {navItems.map((item, index) => (
-            <motion.a variants={itemV} key={index} href="#" whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
-                <Link to={`/${item}`}>{item}</Link>
-            </motion.a>
-        ))}
+    <motion.ul initial="secondary" animate="primary" variants={listVariants}>
+      {navItems.map((item, index) => (
+        <motion.li key={index} variants={itemVariants}>
+          <Link to={item.path}>{item.name}</Link>
+        </motion.li>
+      ))}
     </motion.ul>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

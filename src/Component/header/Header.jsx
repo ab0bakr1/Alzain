@@ -7,122 +7,88 @@ import Navbar from './Navbar';
 import Button from './Button';
 import NavMobile from './NavMobile';
 import { CartContext } from '../../context/CartContext';
-// framer motion
-import { motion } from 'framer-motion';
-
-// css
-import './Header.css';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import './Header.css';
 
-const variants = {
+const sidebarVariants = {
   primary: {
-    clipPath: 'circle(1200px at 350px 50px)',
-    transition: {
-      type: 'spring',
-      stiffness: 20,
-    },
+    x: 0,
+    transition: { type: 'spring', stiffness: 100, damping: 20 }
   },
   secondary: {
-    clipPath: 'circle(30px at 350px 50px)',
-    transition: {
-      delay: 0.5,
-      type: 'spring',
-      stiffness: 400,
-      damping: 40,
-    },
-  },
+    x: '100%',
+    transition: { type: 'spring', stiffness: 100, damping: 20 }
+  }
 };
 
 function Header() {
-  const [scroolled, setScroolled] = useState(false);
-  const [variant, setVariant] = useState(false);
-  const [name, setName] = useState('');
+  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [userName, setUserName] = useState('تسجيل الدخول');
   const { cart } = useContext(CartContext);
 
   useEffect(() => {
-    const handscroll = () => {
-      if (window.scrollY > 100) {
-        setScroolled(true);
-      } else {
-        setScroolled(false);
-      }
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handscroll);
-    return () => window.removeEventListener('scroll', handscroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem('user')) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      setName(user.name);
-    } else {
-      setName('تسجيل الدخول');
-    }
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) setUserName(user.name);
   }, []);
 
-  const cartquantity = () => {
-    return Array.isArray(cart)
-    ? cart.reduce((count, item) => count + (Number(item.quantity) || 0), 0)
-    : 0;
+  const cartQuantity = () => {
+    return Array.isArray(cart) ? cart.reduce((total, item) => total + (item.quantity || 0), 0) : 0;
   };
 
   return (
-    <header dir="rtl" lang="ar" className={scroolled ? 'header1 active' : 'header1 shadow'}>
+    <header dir="rtl" className={scrolled ? 'header1 active' : 'header1'}>
       <Container>
-        <Row className="align-items-center justify-content-between py-1" style={{ height: '90px' }}>
-          <Col xs={3} md={2} className="ul-mobile">
-            <motion.div className="nav-side" animate={variant ? 'primary' : 'secondary'}>
-              <motion.div className="nav-back" variants={variants}>
+        <Row className="align-items-center justify-content-between">
+          {/* موبايل منيو */}
+          <Col xs={2} className="ul-mobile">
+            <div className="nav-side">
+              <Button setVariant={setIsOpen} isOpen={isOpen} />
+              <motion.div 
+                className="nav-back" 
+                initial="secondary"
+                animate={isOpen ? 'primary' : 'secondary'}
+                variants={sidebarVariants}
+              >
                 <NavMobile />
               </motion.div>
-              <Button setVariant={setVariant} />
-            </motion.div>
+            </div>
           </Col>
-          <Col xs={6} md={2} className="h-100">
-            <img src={logo} className="logo img-fluid" alt="logo" width={100} />
+
+          {/* الشعار */}
+          <Col xs={4} lg={2}>
+            <Link to="/">
+              <img src={logo} className="logo img-fluid" alt="الزين" width={80} />
+            </Link>
           </Col>
-          <Col xs={6} md={8} className="nav">
+
+          {/* روابط التنقل (دسكتاب) */}
+          <Col lg={7} className="nav d-none d-lg-block">
             <Navbar />
           </Col>
-          <Col xs={3} md={2}>
-            <div className="user d-flex justify-content-center align-items-center gap-3">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-              <Link to="/Cart" id="cart" className="d-flex align-items-center gap-2 text-decoration-none text-dark" style={{ position: 'relative' }}>
-                <FontAwesomeIcon icon={faCartShopping} style={{ cursor: 'pointer' }} />
-                {cartquantity() > 0 && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: '-15px',
-                      right: '-15px',
-                      backgroundColor: '#000',
-                      color: 'white',
-                      borderRadius: '50%',
-                      padding: '2px 5px',
-                      fontWeight: 'bold',
-                      fontSize: '12px',
-                      minWidth: '20px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {cartquantity()}
-                  </span>
-                )}
+
+          {/* أيقونات المستخدم */}
+          <Col xs={6} lg={3}>
+            <div className="user-actions justify-content-end">
+              <Link to="#" className="icon-link"><FontAwesomeIcon icon={faMagnifyingGlass} /></Link>
+              
+              <Link to="/Cart" className="icon-link">
+                <FontAwesomeIcon icon={faCartShopping} />
+                {cartQuantity() > 0 && <span className="cart-badge">{cartQuantity()}</span>}
               </Link>
-              <Link
-                to={name === 'تسجيل الدخول' ? '/Register' : '/'}
-                id="login"
-                className="d-flex align-items-center gap-2 text-decoration-none text-dark"
-                style={{ cursor: 'pointer' }}
-              >
-                {name === 'تسجيل الدخول' ? (
-                  <FontAwesomeIcon icon={faUserPlus} style={{ cursor: 'pointer' }} />
-                ) : (
-                  <FontAwesomeIcon icon={faUser} style={{ cursor: 'pointer' }} />
-                )}
-                <h6 className="mb-0" style={{ cursor: 'pointer' }}>
-                  {name}
-                </h6>
+
+              <Link to={userName === 'تسجيل الدخول' ? '/Register' : '/Profile'} className="icon-link d-flex align-items-center gap-2 text-decoration-none">
+                <FontAwesomeIcon icon={userName === 'تسجيل الدخول' ? faUserPlus : faUser} />
+                <span className="user-name mb-0" style={{fontSize: '14px'}}>{userName}</span>
               </Link>
             </div>
           </Col>
