@@ -34,11 +34,8 @@ const connectionOptions = {
 
 mongoose.connect(process.env.MONGO_URI, connectionOptions)
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => {
-    console.error("❌ MongoDB connection error details:");
-    console.error(err.message); // سيطبع لك السبب الدقيق للمشكلة
-  });
-  
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
 // الدفع
 const paymentRoutes = require("./src/routes/payment");
 app.use("/api/payment", paymentRoutes);
