@@ -1,154 +1,101 @@
 header {
   position: fixed;
-  top: 0;
+  top: 20px; /* جعل الهيدر طائراً وليس ملتصقاً بالسقف */
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
-  width: 100%;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 95%;
+  max-width: 1400px;
 }
 
 .header1 {
-  background-color: transparent;
-  padding: 15px 0;
+  background: rgba(255, 255, 255, 0.05); /* شفاف جداً */
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px; /* حواف دائرية كاملة */
+  padding: 10px 30px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* حالة الهيدر عند السكرول */
+/* عند السكرول يتحول لشريط أنيق وغامق */
 .header1.active {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  padding: 8px 0;
-}
-
-.logo {
-  transition: transform 0.3s ease;
-}
-
-.header1.active .logo {
-  transform: scale(0.9);
+  background: rgba(12, 87, 76, 0.95); /* لون الزين الأخضر */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  top: 10px;
+  border-color: rgba(255, 215, 0, 0.3); /* لمسة ذهبية خفيفة */
 }
 
 /* القائمة الرئيسية */
 .nav ul {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin: 0;
+  gap: 35px;
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 
 .nav a {
-  font-size: 1rem;
-  font-weight: 600;
+  color: #fff; /* النص دائماً أبيض ليبرز فوق الخلفية */
+  font-weight: 500;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  color: #2d2d2d;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -5px;
-  right: 0;
-  background-color: #0C574C;
-  transition: width 0.3s ease;
-}
-
-.nav a:hover::after {
-  width: 100%;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
 .nav a:hover {
-  color: #0C574C;
+  opacity: 1;
+  color: #FFD700; /* ذهبي عند التمرير */
+  text-shadow: 0 0 10px rgba(255, 214, 0, 0.5);
 }
 
-/* أيقونات المستخدم والسلة */
+/* أيقونات الأكشن */
 .user-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
-.icon-link {
-  color: #2d2d2d;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.icon-link:hover {
-  color: #0C574C;
-  transform: translateY(-2px);
-}
-
-.cart-badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: #0C574C;
-  color: white;
-  font-size: 10px;
-  width: 18px;
-  height: 18px;
+.action-btn {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-btn:hover {
+  background: #FFD700;
+  color: #0C574C;
+  transform: rotate(360deg); /* حركة دورانية للأيقونة */
+}
+
+/* شارة السلة الذهبية */
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #FFD700;
+  color: #000;
+  font-size: 11px;
   font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #0C574C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* الموبايل */
-.ul-mobile {
-  display: none;
-}
-
-.nav-side button {
-  background: none;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  position: relative;
-  z-index: 1100;
-}
-
-.nav-back {
-  position: fixed;
-  height: 100vh;
-  width: 300px;
-  top: 0;
-  right: 0;
-  z-index: 1050;
-  background: linear-gradient(180deg, #0C574C 0%, #063a32 100%);
-  display: flex;
-  flex-direction: column;
-  padding: 80px 40px;
-}
-
-.navmobile {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.navmobile a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1.4rem;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 10px;
-}
-
 @media screen and (max-width: 991px) {
-  .nav { display: none !important; }
-  .ul-mobile { display: block; }
-}
-
-@media screen and (max-width: 450px) {
-  .user-name { display: none; }
+  .header1 { border-radius: 20px; padding: 10px 15px; }
+  .nav { display: none; }
 }

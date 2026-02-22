@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import logo from '../../IMG/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faMagnifyingGlass, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import Navbar from './Navbar';
 import Button from './Button';
 import NavMobile from './NavMobile';
@@ -11,89 +11,72 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-const sidebarVariants = {
-  primary: {
-    x: 0,
-    transition: { type: 'spring', stiffness: 100, damping: 20 }
-  },
-  secondary: {
-    x: '100%',
-    transition: { type: 'spring', stiffness: 100, damping: 20 }
-  }
-};
-
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [userName, setUserName] = useState('تسجيل الدخول');
   const { cart } = useContext(CartContext);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) setUserName(user.name);
-  }, []);
-
-  const cartQuantity = () => {
-    return Array.isArray(cart) ? cart.reduce((total, item) => total + (item.quantity || 0), 0) : 0;
-  };
+  const totalQty = Array.isArray(cart) ? cart.reduce((acc, item) => acc + (item.quantity || 0), 0) : 0;
 
   return (
-    <header dir="rtl" className={scrolled ? 'header1 active' : 'header1'}>
-      <Container>
-        <Row className="align-items-center justify-content-between">
-          {/* موبايل منيو */}
-          <Col xs={2} className="ul-mobile">
-            <div className="nav-side">
-              <Button setVariant={setIsOpen} isOpen={isOpen} />
-              <motion.div 
-                className="nav-back" 
-                initial="secondary"
-                animate={isOpen ? 'primary' : 'secondary'}
-                variants={sidebarVariants}
-              >
-                <NavMobile />
-              </motion.div>
-            </div>
-          </Col>
-
-          {/* الشعار */}
+    <header dir="rtl">
+      <div className={scrolled ? 'header1 active' : 'header1'}>
+        <Row className="align-items-center">
+          {/* الجانب الأيمن: الشعار */}
           <Col xs={4} lg={2}>
-            <Link to="/">
-              <img src={logo} className="logo img-fluid" alt="الزين" width={80} />
+            <Link to="/" className="d-flex align-items-center text-decoration-none">
+              <img src={logo} alt="الزين" style={{ filter: 'brightness(0) invert(1)', width: '60px' }} />
+              <span className="ms-2 d-none d-lg-block fw-bold text-white">AL ZAIN</span>
             </Link>
           </Col>
 
-          {/* روابط التنقل (دسكتاب) */}
-          <Col lg={7} className="nav d-none d-lg-block">
+          {/* المنتصف: روابط التنقل */}
+          <Col lg={7} className="nav d-none d-lg-flex justify-content-center">
             <Navbar />
           </Col>
 
-          {/* أيقونات المستخدم */}
-          <Col xs={6} lg={3}>
-            <div className="user-actions justify-content-end">
-              <Link to="#" className="icon-link"><FontAwesomeIcon icon={faMagnifyingGlass} /></Link>
+          {/* الجانب الأيسر: أيقونات تفاعلية */}
+          <Col xs={8} lg={3} className="d-flex justify-content-end align-items-center gap-2">
+            <div className="user-actions">
+              <div className="action-btn"><FontAwesomeIcon icon={faMagnifyingGlass} /></div>
               
-              <Link to="/Cart" className="icon-link">
+              <Link to="/Cart" className="action-btn" style={{ position: 'relative' }}>
                 <FontAwesomeIcon icon={faCartShopping} />
-                {cartQuantity() > 0 && <span className="cart-badge">{cartQuantity()}</span>}
+                {totalQty > 0 && <span className="cart-badge">{totalQty}</span>}
               </Link>
 
-              <Link to={userName === 'تسجيل الدخول' ? '/Register' : '/Profile'} className="icon-link d-flex align-items-center gap-2 text-decoration-none">
-                <FontAwesomeIcon icon={userName === 'تسجيل الدخول' ? faUserPlus : faUser} />
-                <span className="user-name mb-0" style={{fontSize: '14px'}}>{userName}</span>
+              <Link to="/Login" className="action-btn d-none d-md-flex">
+                <FontAwesomeIcon icon={faUser} />
               </Link>
+            </div>
+
+            {/* زر منيو الموبايل */}
+            <div className="ul-mobile ms-2">
+              <Button setVariant={setIsOpen} isOpen={isOpen} />
             </div>
           </Col>
         </Row>
-      </Container>
+      </div>
+
+      {/* قائمة الموبايل الجانبية */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            className="nav-back"
+          >
+            <NavMobile setIsOpen={setIsOpen} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
