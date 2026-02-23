@@ -6,17 +6,17 @@ import './Testimonials.css';
 
 const testimonials = [
   {
-    img: "https://snhr.org/arabic/2016/08/11/6804/",
+    img: "https://snhr.org/arabic/wp-content/uploads/sites/2/2016/02/unknown.jpg",
     name: "أبوبكر المشهور",
     content: "كنت دائمًا أبحث عن شاي يجمع بين الطعم الرائع والجودة العالية، وقد وجدت ذلك تمامًا في شاي الزين. أستمتع بشكل خاص بنكهته الغنية التي تدوم في الفم."
   },
   {
-    img: "https://snhr.org/arabic/2016/08/11/6804/",
+    img: "https://snhr.org/arabic/wp-content/uploads/sites/2/2016/02/unknown.jpg",
     name: "محمد عبدالله",
     content: "شاي الزين ليس مجرد مشروب، بل هو تجربة. أحب تقديمه لضيوفي، ودائمًا ما يتلقون إشادات على مذاقه المميز. التعبئة أنيقة وتحافظ على الجودة."
   },
   {
-    img: "https://snhr.org/arabic/2016/08/11/6804/",
+    img: "https://snhr.org/arabic/wp-content/uploads/sites/2/2016/02/unknown.jpg",
     name: "طلعت زكرية",
     content: "ياخي هالزين مال الشاي شي ما صاير! من تشمه ريحته تعرف انه شغل عدل. ولما تشربه تحس براحة كذا... طعمه فيه غناوة ومو أي كلام."
   }
