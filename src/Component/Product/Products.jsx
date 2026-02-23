@@ -1,50 +1,73 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
-import './Products.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import { CartContext } from '../../context/CartContext';
+import { motion } from 'framer-motion';
+import './Products.css';
 
 export const Products = () => {
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const { cart, addToCart } = useContext(CartContext);
 
   useEffect(() => {
     fetch('https://alzain.onrender.com/api/products')
       .then((res) => res.json())
-      .then((data) => setProduct(data));
+      .then((data) => setProducts(data));
   }, []);
 
-
-  // التحقق إذا كان المنتج موجود بالفعل في السلة
   const isInCart = (productId) => {
     return cart.some((item) => item.productId === productId);
   };
 
   return (
-    <section>
+    <section className="products-section py-5">
       <Container>
-        <h3 className="text-center my-3 my-md-5">Products</h3>
-        <Row className="justify-content-around align-items-center gap-5 my-5">
-          {product.map((product) => (
-            <div key={product._id} className="cardProduct">
-              <div id="cardnewfilter">
-                <p>NEW</p>
-              </div>
-              <div id="cardbrightfilter"></div>
-              <div id="cardtop">
-                <img src={product.images[0].image} alt={product.name} className="h-100" />
-              </div>
-              <div id="cardbottom">
-                <p id="cardbottomtitle">{product.name}</p>
-                <p id="cardbottomdesc" className='m-0'>{product.description}</p>
-                <hr />
-                <div id="cardbottombutton">
-                  <p id="cardbottomprice">${product.price}</p>
-                  <button className="btn btn-success" onClick={() => addToCart(product._id)}>
-                    {isInCart(product._id) ? 'إزالة من السلة' : 'إضافة إلى السلة'}
-                  </button>
+        <motion.h3 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center products-title"
+        >
+          منتجات الزين المختارة
+        </motion.h3>
+
+        <Row className="justify-content-center g-5">
+          {products.map((product, index) => (
+            <Col key={product._id} xs={12} md={6} lg={4} className="d-flex justify-content-center">
+              <motion.div 
+                className="cardProduct"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div id="cardnewfilter">
+                  <p className="m-0">جديد</p>
                 </div>
-              </div>
-            </div>
+                
+                <div id="cardbrightfilter"></div>
+
+                <div id="cardtop">
+                  <img src={product.images[0].image} alt={product.name} className="img-fluid" />
+                </div>
+
+                <div id="cardbottom">
+                  <div>
+                    <h5 id="cardbottomtitle">{product.name}</h5>
+                    <p id="cardbottomdesc">{product.description}</p>
+                  </div>
+                  
+                  <div id="cardbottombutton">
+                    <p id="cardbottomprice">{product.price} ر.ي</p>
+                    <button 
+                      className={`btn-add-cart ${isInCart(product._id) ? 'btn-in-cart' : ''}`}
+                      onClick={() => addToCart(product._id)}
+                    >
+                      {isInCart(product._id) ? 'إزالة' : 'إضافة للطلب'}
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </Col>
           ))}
         </Row>
       </Container>
