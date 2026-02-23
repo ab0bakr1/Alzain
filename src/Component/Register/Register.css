@@ -1,61 +1,128 @@
-.register{
-    margin-top: 6rem;
+.register {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(circle at top right, #0c574c15, transparent),
+                radial-gradient(circle at bottom left, #ffd70010, transparent);
+    padding-top: 100px !important;
 }
+
+.register-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(12, 87, 76, 0.05);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.register-header h2 {
+    font-family: "Aref Ruqaa", serif;
+    color: #0C574C;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.register-header p {
+    color: #777;
+    font-family: "Cairo", sans-serif;
+}
+
 .register form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 2rem 1rem;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: box-shadow 0.3s ease;
-    margin: 0 auto;
-    max-width: 600px;
-    background: linear-gradient(135deg, rgb(119, 119, 119) 0%, rgb(119, 119, 119) 100%);
+    gap: 20px;
 }
-.register form label{
-    font-weight: bold;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    color: #0C574C;
+
+.register form label {
     position: relative;
-}
-.register form label .input {
-    background-color: #fff;
-    color: #333;
     width: 100%;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid rgba(105, 105, 105, 0.397);
-    border-radius: 10px;
-} 
-.register form label .input + span {
-    color: #333;
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-}  
-.register form label .input:placeholder-shown + span {
-    top: 15px;
-    font-size: 0.9em;
 }
-.register form label .input:focus + span,
-.register form label .input:valid + span {
+
+.register form .input {
+    width: 100%;
+    padding: 15px 15px 10px 10px;
+    border: 2px solid #f0f0f0;
+    border-radius: 15px;
+    background: #fdfdfd;
+    outline: none;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.register form .input:focus {
+    border-color: #0C574C;
+    background: white;
+}
+
+/* تأثير تحرك النص (Floating Label) */
+.register form label span {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-family: 'Cairo', sans-serif;
+}
+
+.register form .input:focus + span,
+.register form .input:not(:placeholder-shown) + span {
+    top: 5px;
+    right: 12px;
+    font-size: 0.75rem;
     color: #0C574C;
-    top: 0px;
-    font-size: 0.7em;
-    font-weight: 600;
-} 
-.register input[type="submit"]{
-    background: linear-gradient(45deg, #073d35, #0C574C);
-    color: #fff;
+    font-weight: 700;
+}
+
+.register input[type="submit"] {
+    background: linear-gradient(135deg, #0C574C, #063a32);
+    color: white;
+    padding: 15px;
     border: none;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.register input[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(12, 87, 76, 0.2);
+    background: #FFD700;
+    color: #0C574C;
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.register-footer a {
+    color: #0C574C;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.register-footer a:hover {
+    color: #FFD700;
+}
+
+/* تنبيهات الخطأ والنجاح */
+.alert-msg {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    text-align: center;
 }

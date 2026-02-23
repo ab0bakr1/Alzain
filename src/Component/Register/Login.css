@@ -1,61 +1,135 @@
-.login{
-    margin-top: 6rem;
+/* Login.css */
+.login {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(circle at center, #0c574c08 0%, #ffffff 100%);
+    padding-top: 120px !important;
 }
+
+.login-card {
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(12, 87, 76, 0.05);
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login-card h2 {
+    font-family: "Aref Ruqaa", serif;
+    color: #0C574C;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+
 .login form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 2rem 1rem;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: box-shadow 0.3s ease;
-    margin: 0 auto;
-    max-width: 600px;
-    background: linear-gradient(135deg, rgb(119, 119, 119) 0%, rgb(119, 119, 119) 100%);
+    gap: 25px;
 }
-.login form label{
-    font-weight: bold;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    color: #0C574C;
+
+.login form label {
     position: relative;
-}
-.login form label .input {
-    background-color: #fff;
-    color: #333;
     width: 100%;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid rgba(105, 105, 105, 0.397);
-    border-radius: 10px;
-} 
-.login form label .input + span {
-    color: #333;
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-}  
-.login form label .input:placeholder-shown + span {
-    top: 15px;
-    font-size: 0.9em;
+    text-align: right;
 }
-.login form label .input:focus + span,
-.login form label .input:valid + span {
+
+.login form .input {
+    width: 100%;
+    padding: 18px 15px 8px 10px;
+    border: 2px solid #f5f5f5;
+    border-radius: 15px;
+    background: #fafafa;
+    outline: none;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login form .input:focus {
+    border-color: #0C574C;
+    background: white;
+    box-shadow: 0 5px 15px rgba(12, 87, 76, 0.05);
+}
+
+/* Floating Label Animation */
+.login form label span {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-family: 'Cairo', sans-serif;
+}
+
+.login form .input:focus + span,
+.login form .input:not(:placeholder-shown) + span {
+    top: 8px;
+    right: 12px;
+    font-size: 0.75rem;
     color: #0C574C;
-    top: 0px;
-    font-size: 0.7em;
-    font-weight: 600;
-} 
-.login input[type="submit"]{
-    background: linear-gradient(45deg, #073d35, #0C574C);
-    color: #fff;
+    font-weight: 700;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #0C574C, #063a32);
+    color: white;
+    padding: 15px;
     border: none;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.login-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(12, 87, 76, 0.2);
+    background: #FFD700;
+    color: #0C574C;
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background: #fff5f5;
+    color: #e53e3e;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    border-right: 4px solid #e53e3e;
+    margin-bottom: 10px;
+}
+
+.login-footer {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.login-footer p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.login-footer a {
+    color: #0C574C;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-footer a:hover {
+    color: #FFD700;
 }
