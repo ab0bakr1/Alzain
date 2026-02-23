@@ -1,46 +1,70 @@
-import React from 'react'
-import './Footer.css'
-import { Container, Row } from 'react-bootstrap'
-import logo from '../../IMG/logo.png'
-
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram, faWhatsapp, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import logo from '../../IMG/logo.png';
+import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer pt-5 pb-3">
+    <footer className="footer" dir="rtl">
       <Container>
-        <Row className=''>
-          <div className="footer-section about">
-              <h4>حول الزين</h4>
-              <div className="">
-                <img src={logo} className="w-75"  alt="logo" height={200} />
-                <p>خلطة حضرمية بلمسة الزين... لكل من يقدر نكهة الزمن الأصيل</p>
-              </div>
-          </div>
-          <div className="footer-section links">
-            <h4>الروابط السريعة</h4>
-            <ul>
-              <li><a href="#home">الرئيسية</a></li>
-              <li><a href="#products">المنتجات</a></li>
-              <li><a href="#contact">للتواصل معنا</a></li>
-              <li><a href="#testimonials">التقييمات</a></li>
-              <li><a href="#about">من نحن</a></li>
-              <li><a href="#services">الخدمات</a></li>
-              <li><a href="#faq">الأسئلة الشائعة</a></li>
-            </ul>
-          </div>
-          <div className="footer-section cont">
-            <h4>تواصل معنا</h4>
-            <p>الهاتف: 01123456789</p>
-            <p>البريد الالكتروني : sales@alzain.com</p>
-            <p>سلطنة عمان , مسقط , الخوير</p>
-          </div>
+        <Row className="gy-4">
+          {/* قسم من نحن */}
+          <Col lg={4} md={6} className="footer-section about">
+            <img src={logo} alt="الزين" />
+            <p>
+              تجربة فريدة تأخذكم إلى قلب حضرموت، حيث نختار أجود أنواع الشاي والأعشاب لنقدم لكم خلطة "الزين" التي تجسد الأصالة في كل رشفة.
+            </p>
+            <div className="social-icons">
+              <a href="#" className="social-icon"><FontAwesomeIcon icon={faInstagram} /></a>
+              <a href="#" className="social-icon"><FontAwesomeIcon icon={faWhatsapp} /></a>
+              <a href="#" className="social-icon"><FontAwesomeIcon icon={faTwitter} /></a>
+            </div>
+          </Col>
+
+          {/* قسم الروابط السريعة */}
+          <Col lg={4} md={6} className="footer-section links pe-lg-5">
+            <h4>روابط سريعة</h4>
+            <Row>
+              <Col xs={6}>
+                <ul>
+                  <li><a href="#home">الرئيسية</a></li>
+                  <li><a href="#products">المنتجات</a></li>
+                  <li><a href="#about">حكايتنا</a></li>
+                </ul>
+              </Col>
+              <Col xs={6}>
+                <ul>
+                  <li><a href="#faq">الأسئلة الشائعة</a></li>
+                  <li><a href="#contact">تواصل معنا</a></li>
+                  <li><a href="#services">الخدمات</a></li>
+                </ul>
+              </Col>
+            </Row>
+          </Col>
+
+          {/* قسم معلومات التواصل */}
+          <Col lg={4} md={12} className="footer-section cont">
+            <h4>معلوماتنا</h4>
+            <p><FontAwesomeIcon icon={faPhone} className="text-warning" /> 01123456789</p>
+            <p><FontAwesomeIcon icon={faEnvelope} className="text-warning" /> sales@alzain.com</p>
+            <p><FontAwesomeIcon icon={faMapMarkerAlt} className="text-warning" /> سلطنة عمان، مسقط، الخوير</p>
+          </Col>
         </Row>
       </Container>
+
       <div className="footer-bottom">
-        &copy; {new Date().getFullYear()} Alzain. All rights reserved. By Abobakr almashhor
+        <Container>
+          <p className="m-0">
+            حقوق الطبع والنشر &copy; {new Date().getFullYear()} <span>الزين</span>. جميع الحقوق محفوظة. 
+            <br className="d-md-none" /> تصميم: <span>أبوبكر المشهور</span>
+          </p>
+        </Container>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
