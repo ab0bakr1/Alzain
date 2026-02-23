@@ -2,9 +2,10 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at top right, #0c574c15, transparent),
-                radial-gradient(circle at bottom left, #ffd70010, transparent);
+    background: radial-gradient(circle at top right, #0c574c, transparent),
+                radial-gradient(circle at bottom left, #ffd900, transparent);
     padding-top: 100px !important;
+    padding-bottom: 20px !important;
 }
 
 .register-card {
