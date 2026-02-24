@@ -3,9 +3,9 @@
     min-height: 90vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at center, #0c574c 0%, #ffffff 80%);
+    background: radial-gradient(circle at center, #0c574c 40%, #ffffff 150%);
     padding-top: 120px !important;
-    padding-bottom: 20px !important;
+    padding-bottom: 40px !important;
 }
 
 .login-card {
