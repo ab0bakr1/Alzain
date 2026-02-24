@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Col, Container, Row, Badge } from 'react-bootstrap';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { CartContext } from '../../context/CartContext';
 import Payment from '../Payment/Payment';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus, faTrash, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faPlus, faMinus, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import './Cart.css';
 
 const Cart = () => {
@@ -17,8 +17,8 @@ const Cart = () => {
 
   const cartquantity = () => cart.reduce((count, item) => count + (Number(item.quantity) || 0), 0);
 
-  const updateQty = async (productId, newQty) => {
-    if (newQty < 1) {
+  const updateQuantity = async (productId, newQuantity) => {
+    if (newQuantity < 1) {
       await removeFromCart(productId);
       return;
     }
@@ -29,113 +29,116 @@ const Cart = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ productId, quantity: newQty }),
+        body: JSON.stringify({ productId, quantity: newQuantity }),
       });
-      if (response.ok) {
-        const updatedData = await response.json();
-        const normalizedCart = updatedData.items?.map((item) => {
-          const product = typeof item.productId === 'object' ? item.productId : {};
-          return {
-            productId: product._id || item.productId,
-            name: product.name || 'منتج غير معروف',
-            description: product.description || '',
-            image: product.images ? (product.images[0]?.image || '') : (product.image || ''),
-            price: product.price || 0,
-            quantity: item.quantity ?? 1,
-          };
-        }) || [];
-        setCart(normalizedCart);
-      }
+      if (!response.ok) throw new Error('Failed to update');
+      const updatedCart = await response.json();
+      const normalizedCart = updatedCart.items?.map((item) => {
+        const product = typeof item.productId === 'object' ? item.productId : {};
+        return {
+          productId: product._id || item.productId,
+          name: product.name || 'منتج غير معروف',
+          description: product.description || '',
+          image: product.images ? (product.images[0]?.image || '') : (product.image || ''),
+          price: product.price || 0,
+          quantity: item.quantity ?? 1,
+        };
+      }) || [];
+      setCart(normalizedCart);
     } catch (error) {
-      console.error("Error updating qty:", error);
+      console.error(error);
     }
   };
 
-  if (cart.length === 0) {
-    return (
-      <Container className="cart-empty">
-        <FontAwesomeIcon icon={faShoppingBag} size="4x" className="mb-4 text-muted" />
-        <h3>سلة المشتريات فارغة</h3>
-        <p>ابدأ بإضافة بعض المنتجات الرائعة لسلتك الآن!</p>
-        <a href="#products" className="btn btn-success px-4 py-2 mt-3" style={{backgroundColor: '#0C574C'}}>تسوق الآن</a>
-      </Container>
-    );
-  }
-
   return (
-    <section className='cart-section py-5 mt-5' dir="rtl">
+    <section className='cart-section'>
       <Container>
-        <div className="d-flex align-items-center mb-5 mt-4">
-          <h2 className="products-title mb-0 ms-3">سلة التسوق</h2>
-          <Badge bg="dark" className="rounded-pill px-3 py-2">{cartquantity()} منتجات</Badge>
-        </div>
-
-        <Row className="gy-4">
-          <Col lg={8}>
-            <AnimatePresence>
-              {cart.map((item) => (
-                <motion.div 
-                  layout
-                  key={item.productId}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="cart-card-item"
-                >
-                  <Row className="align-items-center">
-                    <Col xs={4} md={2}>
-                      <img src={item.image} alt={item.name} className="img-fluid product-img-cart" />
-                    </Col>
-                    <Col xs={8} md={4} className="product-info-cart">
-                      <h5>{item.name}</h5>
-                      <p className="text-truncate">{item.description}</p>
-                      <h6 className="mt-2 text-dark fw-bold d-md-none">{item.price} ر.س</h6>
-                    </Col>
-                    <Col xs={6} md={3} className="mt-3 mt-md-0 d-flex justify-content-center">
-                      <div className="quantity-control">
-                        <span className="qty-btn" onClick={() => updateQty(item.productId, item.quantity - 1)}>
-                          <FontAwesomeIcon icon={item.quantity === 1 ? faTrash : faMinus} size="xs" />
-                        </span>
-                        <span className="qty-number">{item.quantity}</span>
-                        <span className="qty-btn" onClick={() => updateQty(item.productId, item.quantity + 1)}>
-                          <FontAwesomeIcon icon={faPlus} size="xs" />
-                        </span>
-                      </div>
-                    </Col>
-                    <Col xs={6} md={3} className="text-start mt-3 mt-md-0">
-                      <div className="fw-bold text-dark fs-5">
-                        {item.price * item.quantity} ر.س
-                      </div>
-                      <small className="text-muted">{item.price} ر.س للوحدة</small>
-                    </Col>
-                  </Row>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </Col>
-
-          <Col lg={4}>
-            <div className="payment-summary">
-              <h4 className="mb-4 fw-bold">ملخص الطلب</h4>
-              <div className="summary-item">
-                <span>إجمالي المنتجات</span>
-                <span>{total} ر.س</span>
-              </div>
-              <div className="summary-item">
-                <span>رسوم التوصيل</span>
-                <span className="text-success fw-bold">مجاني</span>
-              </div>
-              <div className="summary-item total-price">
-                <span>الإجمالي النهائي</span>
-                <span>{total} ر.س</span>
+        <motion.div 
+          className="cart-container"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Row className="gy-4">
+            {/* جانب المنتجات */}
+            <Col xl={8} lg={7}>
+              <div className="cart-title d-flex justify-content-between align-items-center mb-4">
+                <h6><FontAwesomeIcon icon={faShoppingBag} className="me-2" /> سلة التسوق</h6>
+                <span className="badge bg-success">{cartquantity()} منتجات</span>
               </div>
               
-              <div className="mt-4">
+              <div className="cart-table-container">
+                <Table responsive borderless style={{ verticalAlign: 'middle' }}>
+                  <thead>
+                    <tr className="text-muted border-bottom">
+                      <th>المنتج</th>
+                      <th>السعر</th>
+                      <th>الكمية</th>
+                      <th>المجموع</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <AnimatePresence>
+                      {cart.map((item) => (
+                        <motion.tr 
+                          key={item.productId} 
+                          layout
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          className="cart-item-row"
+                        >
+                          <td className="d-flex align-items-center">
+                            <img src={item.image} alt={item.name} width={80} height={80} className="product-img ms-3" />
+                            <div>
+                              <div className="fw-bold">{item.name}</div>
+                              <small className="text-muted">{item.description.substring(0, 30)}...</small>
+                            </div>
+                          </td>
+                          <td className="fw-bold">{item.price} ر.س</td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <span className="qty-btn" onClick={() => updateQuantity(item.productId, item.quantity - 1)}>
+                                <FontAwesomeIcon icon={faMinus} size="xs" />
+                              </span>
+                              <span className="fw-bold mx-2">{item.quantity}</span>
+                              <span className="qty-btn" onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+                                <FontAwesomeIcon icon={faPlus} size="xs" />
+                              </span>
+                            </div>
+                          </td>
+                          <td className="fw-bold text-success">
+                            {item.price * item.quantity} ر.س
+                          </td>
+                        </motion.tr>
+                      ))}
+                    </AnimatePresence>
+                  </tbody>
+                </Table>
+                {cart.length === 0 && (
+                  <div className="text-center py-5">
+                    <p className="text-muted">سلتك فارغة حالياً.. املأها بالزين!</p>
+                  </div>
+                )}
+              </div>
+            </Col>
+
+            {/* جانب الدفع */}
+            <Col xl={4} lg={5}>
+              <div className="payment-sidebar">
+                <h5 className="mb-4 fw-bold">ملخص الطلب</h5>
+                <div className="d-flex justify-content-between mb-3">
+                  <span>إجمالي المنتجات:</span>
+                  <span>{cartquantity()}</span>
+                </div>
+                <div className="d-flex justify-content-between mb-4 border-bottom pb-3">
+                  <span className="fw-bold">المجموع الكلي:</span>
+                  <span className="total-price">{total} ر.س</span>
+                </div>
                 <Payment />
               </div>
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </motion.div>
       </Container>
     </section>
   );

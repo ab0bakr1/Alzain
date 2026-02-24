@@ -1,100 +1,84 @@
-/* Cart.css */
 .cart-section {
-    background-color: #f9fbfb;
     min-height: 100vh;
+    padding-top: 120px !important;
+    background: linear-gradient(135deg, #052924 0%, #0C574C 100%);
+    color: white;
 }
 
-.cart-card-item {
-    background: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    border: 1px solid #f0f0f0;
+.cart-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 30px;
+    color: #333;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.cart-title h6 {
+    font-family: "Aref Ruqaa", serif;
+    font-size: 1.8rem;
+    color: #0C574C;
+}
+
+/* تصميم جدول المنتجات */
+.cart-table-container {
+    overflow-x: auto;
+}
+
+.cart-item-row {
+    background: #f8f9fa;
+    border-radius: 15px;
+    margin-bottom: 15px;
     transition: transform 0.3s ease;
 }
 
-.cart-card-item:hover {
-    transform: translateY(-5px);
+.cart-item-row:hover {
+    transform: scale(1.01);
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.product-img-cart {
+.product-img {
     border-radius: 15px;
     object-fit: cover;
-    background: #f1f1f1;
-}
-
-.product-info-cart h5 {
-    color: #0C574C;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.product-info-cart p {
-    color: #777;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-
-/* أزرار التحكم في الكمية */
-.quantity-control {
-    display: flex;
-    align-items: center;
-    background: #f1f5f4;
-    border-radius: 12px;
-    padding: 5px 15px;
-    width: fit-content;
+    border: 2px solid #eee;
 }
 
 .qty-btn {
+    width: 30px;
+    height: 30px;
+    background: #0C574C;
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-size: 1.2rem;
-    color: #0C574C;
-    font-weight: bold;
+    margin: 0 10px;
+    transition: 0.3s;
     user-select: none;
-    padding: 0 10px;
 }
 
-.qty-number {
-    font-weight: 700;
-    margin: 0 15px;
-    min-width: 20px;
-    text-align: center;
+.qty-btn:hover {
+    background: #FFD700;
+    color: #0C574C;
 }
 
 /* قسم ملخص الدفع */
-.payment-summary {
-    background: #ffffff;
-    border-radius: 25px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(12, 87, 76, 0.08);
-    border: 1px solid rgba(12, 87, 76, 0.1);
-    position: sticky;
-    top: 100px;
-}
-
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+.payment-sidebar {
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px dashed #0C574C;
 }
 
 .total-price {
-    color: #0C574C;
+    font-size: 1.5rem;
     font-weight: 800;
-    font-size: 1.4rem;
-    border-top: 2px dashed #eee;
-    padding-top: 15px;
-    margin-top: 15px;
-}
-
-.cart-empty {
-    text-align: center;
-    padding: 100px 0;
-}
-
-.cart-empty h3 {
     color: #0C574C;
-    font-family: "Aref Ruqaa", serif;
+}
+
+@media (max-width: 768px) {
+    .cart-container { padding: 15px; border-radius: 15px; }
+    .cart-item-row td { display: block; text-align: center; padding: 10px; }
+    .qty-btn { width: 40px; height: 40px; }
 }
