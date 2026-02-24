@@ -70,7 +70,7 @@
 
 .login form .input:focus + span,
 .login form .input:not(:placeholder-shown) + span {
-    top: 8px;
+    top: 10px;
     right: 12px;
     font-size: 0.75rem;
     color: #0C574C;
